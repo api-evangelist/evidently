@@ -1,0 +1,112 @@
+specificationVersion: '1.0'
+id: evidently-finops
+name: Evidently AI FinOps Framework
+description: >
+  FinOps guidance for managing and optimizing costs associated with Evidently AI deployments.
+  Evidently AI follows a hybrid revenue model: the OSS library is free (Apache 2.0), while
+  the commercial platform tiers (Expert, Enterprise) combine a base subscription with
+  per-data-volume charges. Because the platform is self-hosted, total cost of ownership
+  includes both Evidently licensing/subscription and operator infrastructure costs.
+url: https://www.evidentlyai.com/pricing
+focusVersion: '1.0'
+
+costDimensions:
+  - id: oss-infrastructure
+    name: OSS Self-Hosted Infrastructure
+    description: >
+      Compute, storage, and networking costs for running the Evidently OSS platform.
+      These are entirely borne by the operator and depend on the scale of evaluation
+      jobs, number of traces stored, and dashboard query frequency.
+    costType: Infrastructure
+    billedBy: Operator (cloud/on-prem provider)
+    examples:
+      - Virtual machine or container compute for the Evidently server
+      - Object storage for JSON report artifacts and raw trace data
+      - Database storage for metrics time-series and test results
+      - Network egress for dashboard access and API calls
+
+  - id: subscription-fee
+    name: Platform Subscription Fee
+    description: >
+      Base subscription for the Expert or Enterprise self-hosted platform tier. Starting
+      at approximately $500/month for Expert. Enterprise is custom-quoted. Includes
+      no-code workflows, RBAC, alerts, scheduled tasks, and managed support.
+    costType: Subscription
+    billedBy: Evidently AI
+    billingCycle: Monthly or Annual
+    startingPrice: 500
+    currency: USD
+
+  - id: data-volume-charges
+    name: Per-Data-Volume Overage Charges
+    description: >
+      Commercial tiers include usage-based charges beyond the base subscription for
+      data volume processed. Includes evaluation row counts, trace ingestion volume,
+      and stored dataset size. Specific per-unit rates are not publicly published;
+      obtain from Evidently sales.
+    costType: Usage
+    billedBy: Evidently AI
+    unit: Data volume (rows / GB)
+    rateNote: Not publicly disclosed; contact sales for details
+
+optimizationStrategies:
+  - id: oss-first
+    name: Start with OSS Before Committing to Commercial Tier
+    description: >
+      The open-source library and self-hosted OSS platform provide the full evaluation
+      and monitoring feature set at zero licensing cost. Teams should validate their
+      use case and scale requirements with OSS before adopting the Expert tier.
+    category: Cost Avoidance
+
+  - id: batch-evaluations
+    name: Batch Evaluations to Reduce Compute Costs
+    description: >
+      Evidently is designed for batch evaluation runs (e.g., nightly or per-release
+      checks) rather than per-request real-time inference. Scheduling evaluations in
+      off-peak windows reduces compute costs on the underlying infrastructure.
+    category: Optimization
+
+  - id: selective-metrics
+    name: Use Only Required Metrics
+    description: >
+      With 100+ available metrics, computing all metrics for every run significantly
+      increases CPU and time cost. Profile which metrics are actionable and limit
+      evaluation scope to those, reducing per-run compute expenditure.
+    category: Efficiency
+
+  - id: startup-discount
+    name: Apply for Startup Discount Program
+    description: >
+      Evidently AI offers eligible startups up to 90% discount on the Expert tier for
+      six months via their startup program at https://www.evidentlyai.com/sign-up-startups.
+      Qualifying teams should apply before committing to full pricing.
+    category: Cost Reduction
+
+  - id: self-host-vs-saas
+    name: Self-Host to Avoid SaaS Markup
+    description: >
+      Since Evidently Cloud SaaS is discontinued, all commercial deployments are now
+      self-hosted. Operators control infrastructure costs directly. Use spot/preemptible
+      instances for batch evaluation workloads and right-size storage tiers based on
+      retention policies for reports and traces.
+    category: Architecture
+
+budgetingGuidance:
+  - category: Small Team (OSS)
+    monthlyEstimate: "$0 licensing + $50–$200 infrastructure"
+    notes: >
+      Single developer or small team running batch evaluations on existing ML infrastructure.
+      Storage and compute overhead is minimal.
+
+  - category: Growing Team (Expert)
+    monthlyEstimate: "$500+ subscription + $200–$1,000 infrastructure"
+    notes: >
+      Team of 5–20 with scheduled evaluations, LLM tracing, and dashboard access. Data
+      volume overages may add to the base subscription cost.
+
+  - category: Enterprise
+    monthlyEstimate: "Custom quote + dedicated infrastructure"
+    notes: >
+      Large organizations with strict data governance. Budget includes Evidently Enterprise
+      licensing, dedicated infrastructure (private cloud or on-prem), and implementation
+      support costs.

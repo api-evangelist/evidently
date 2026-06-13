@@ -1,0 +1,84 @@
+specificationVersion: '0.1'
+id: evidently-plans-pricing
+name: Evidently AI Plans and Pricing
+description: >
+  Evidently AI offers a fully open-source core library (Apache 2.0) alongside commercial
+  platform tiers for teams requiring managed infrastructure, collaboration features, and
+  enterprise security controls. Evidently Cloud was previously available as SaaS but is
+  now discontinued; teams can self-host the Evidently Platform (OSS) or pursue the
+  Enterprise self-hosted offering.
+url: https://www.evidentlyai.com/pricing
+plans:
+  - name: Open Source (OSS)
+    description: >
+      The full Evidently Python library and lightweight self-hosted platform under Apache 2.0.
+      Includes all 100+ metrics, evaluations, reports, test suites, data drift detection,
+      tracing, dataset management, dashboards, and the REST API. Operators bear their own
+      infrastructure costs (compute, storage).
+    price: 0
+    priceCurrency: USD
+    billingCycle: free
+    features:
+      - 100+ built-in ML and LLM metrics
+      - Data drift, data quality, and model performance evaluations
+      - Reports, test suites, and monitoring dashboards
+      - Python SDK (pip install evidently)
+      - REST API access (self-hosted)
+      - Tracing and dataset management
+      - Synthetic data generation
+      - Prompt optimization
+      - JSON report storage
+      - Jupyter Notebook integration
+      - Apache 2.0 license
+    limitations:
+      - No no-code evaluation workflows
+      - No role-based access control
+      - No managed cloud backend
+      - No alerts or scheduled tasks (platform features)
+      - Infrastructure costs borne by operator
+
+  - name: Expert (Cloud / Self-Hosted)
+    description: >
+      Commercial tier targeting data science teams needing managed workflows, collaboration,
+      and no-code capabilities on top of the OSS core. Previously delivered as Evidently Cloud
+      SaaS; now available as a self-hosted managed platform. Startups may qualify for up to
+      90% discount for six months.
+    price: 500
+    priceCurrency: USD
+    billingCycle: monthly
+    priceNote: >
+      Starting price reported as ~$500/month; final pricing depends on data volume and usage.
+      A hybrid model combines base subscription fees with per-data-volume charges beyond
+      included limits. Contact Evidently for current rates.
+    features:
+      - All OSS features included
+      - No-code data generation workflows
+      - No-code evaluation pipelines
+      - No-code dashboards
+      - Side-by-side model comparison
+      - Alerts and notifications
+      - Scheduled evaluation tasks
+      - Role-based access control (RBAC)
+      - Scalable managed backend
+      - Startup discount program (up to 90% for 6 months)
+
+  - name: Enterprise (Self-Hosted)
+    description: >
+      Full-featured platform equivalent to the Expert tier deployed in a private cloud or
+      on-premises environment. Designed for organizations with strict data governance and
+      security requirements. Includes dedicated implementation support and ongoing team
+      management.
+    price: 0
+    priceCurrency: USD
+    billingCycle: custom
+    priceNote: >
+      Custom pricing; contact Evidently sales via https://www.evidentlyai.com/get-demo for
+      a quote. Includes dedicated implementation and ongoing support.
+    features:
+      - All Expert tier features
+      - Private cloud or on-premises deployment
+      - Dedicated implementation support
+      - Ongoing managed support from Evidently team
+      - Custom SLA
+      - Advanced security controls
+      - Enterprise RBAC and audit logs

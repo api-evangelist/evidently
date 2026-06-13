@@ -1,0 +1,48 @@
+specificationVersion: '0.1'
+id: evidently-rate-limits
+name: Evidently AI Rate Limits
+description: >
+  Evidently AI's core library is open-source and self-hosted, so there are no externally
+  enforced API rate limits from Evidently for the OSS deployment — limits are governed by
+  the operator's own infrastructure. The commercial platform (Expert/Enterprise) is
+  self-hosted and rate limits are similarly infrastructure-dependent. Evidently has not
+  published specific HTTP rate-limit headers or per-minute/per-day call caps for its
+  Platform REST API. The following reflects known constraints and guidance from
+  documentation; operators should size their deployments accordingly.
+url: https://docs.evidentlyai.com/faq/oss_vs_cloud
+rateLimits:
+  - scope: OSS Self-Hosted REST API
+    description: >
+      No rate limits are enforced by Evidently for the self-hosted platform. Throughput is
+      bounded by the operator's compute and storage resources. There are no API call quotas,
+      daily request limits, or throttling policies applied by the Evidently software itself.
+    limit: unlimited
+    limitNote: Governed entirely by operator infrastructure
+
+  - scope: Evidently Cloud (Deprecated SaaS)
+    description: >
+      Evidently Cloud is no longer available as a SaaS product. When it was available,
+      no publicly documented rate limits (requests per minute, daily caps, or burst limits)
+      were disclosed. Authentication used bearer API tokens (EVIDENTLY_API_KEY). The base
+      URL was https://app.evidently.cloud.
+    status: deprecated
+    authenticationMethod: Bearer Token (API Key)
+    baseURL: https://app.evidently.cloud
+    limitNote: SaaS product discontinued; no published rate limits existed
+
+  - scope: Python SDK (pip install evidently)
+    description: >
+      The Python SDK runs evaluations locally or pushes results to a platform endpoint.
+      Local evaluations have no rate limits. When uploading to a platform, network and
+      infrastructure constraints apply. Batch evaluation jobs are the expected usage pattern
+      rather than high-frequency real-time calls.
+    limit: unlimited
+    limitNote: Local compute-bound; no SDK-enforced rate limits
+
+headers:
+  - name: Authorization
+    description: Bearer token for platform API authentication
+    example: "Authorization: Bearer <EVIDENTLY_API_KEY>"
+  - name: Content-Type
+    description: JSON payload for REST API requests
+    example: "Content-Type: application/json"

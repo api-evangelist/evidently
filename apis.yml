@@ -1,0 +1,79 @@
+aid: evidently
+name: Evidently AI
+description: >
+  Evidently AI is an open-source ML and LLM observability framework licensed under Apache 2.0
+  that enables teams to evaluate, test, and monitor AI-powered systems and data pipelines in
+  production. The platform provides over 100 built-in metrics for tracking data drift, data
+  quality, and model performance across both tabular data and generative AI workloads. Developers
+  can integrate evaluations programmatically via the Python SDK or through the Evidently Platform
+  REST API, which exposes endpoints for managing projects, uploading traces, running evaluations,
+  and storing results. Evidently supports self-hosted deployments and previously offered Evidently
+  Cloud (now discontinued as SaaS) so teams can run the full platform within their own
+  infrastructure.
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://raw.githubusercontent.com/api-evangelist/evidently/refs/heads/main/apis.yml
+created: '2026-06-13'
+modified: '2026-06-13'
+specificationVersion: '0.19'
+tags:
+  - ML Monitoring
+  - LLM Observability
+  - Data Drift
+  - Model Performance
+  - AI Evaluation
+  - Data Quality
+  - Open Source
+  - MLOps
+  - LLMOps
+  - Generative AI
+apis:
+  - name: Evidently Platform REST API
+    description: >
+      The Evidently Platform REST API provides programmatic access to the Evidently observability
+      platform, enabling developers to manage projects, upload evaluation results, store traces,
+      run scheduled evaluations, and query monitoring dashboards. Authentication uses bearer
+      token (API key) passed via the EVIDENTLY_API_KEY environment variable or directly in the
+      CloudWorkspace client. The base URL for the hosted platform is https://app.evidently.cloud.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://docs.evidentlyai.com/
+    baseURL: https://app.evidently.cloud
+    tags:
+      - ML Monitoring
+      - LLM Observability
+      - REST API
+      - Data Drift
+      - Evaluation
+    properties:
+      - type: Documentation
+        url: https://docs.evidentlyai.com/
+      - type: OpenAPI
+        url: https://docs.evidentlyai.com/api-reference/openapi.json
+      - type: Python SDK
+        url: https://pypi.org/project/evidently/
+      - type: GitHubRepository
+        url: https://github.com/evidentlyai/evidently
+common:
+  - type: Website
+    url: https://www.evidentlyai.com/
+  - type: Documentation
+    url: https://docs.evidentlyai.com/
+  - type: GitHubOrg
+    url: https://github.com/evidentlyai
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/evidently-ai/
+  - type: Blog
+    url: https://www.evidentlyai.com/blog
+  - type: Pricing
+    url: https://www.evidentlyai.com/pricing
+  - type: X
+    url: https://twitter.com/EvidentlyAI
+  - type: Plans
+    url: plans/evidently-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/evidently-rate-limits.yml
+  - type: FinOps
+    url: finops/evidently-finops.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
