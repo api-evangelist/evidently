@@ -1,0 +1,10 @@
+{
+  "name": "Evidently AI Blog",
+  "description": "Blog posts from Evidently AI covering ML monitoring, LLM observability, data drift, AI evaluation, and MLOps best practices",
+  "url": "https://www.evidentlyai.com/blog",
+  "rssUrl": null,
+  "rssAvailable": false,
+  "note": "No RSS or Atom feed detected for the Evidently AI blog as of 2026-06-13. The blog is hosted on the evidentlyai.com website without a discoverable feed endpoint.",
+  "lastChecked": "2026-06-13",
+  "posts": []
+}

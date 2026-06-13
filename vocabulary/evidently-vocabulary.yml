@@ -1,0 +1,172 @@
+vocabulary:
+  name: Evidently AI API Vocabulary
+  description: >
+    Domain terms and concepts used across the Evidently AI platform for ML/LLM
+    observability, evaluation, and monitoring.
+  version: '1.0.0'
+  url: https://www.evidentlyai.com/
+
+terms:
+
+  - term: Snapshot
+    definition: >
+      A serialised Evidently report or test suite result captured at a point in time.
+      Snapshots are the core unit of storage in the Evidently platform; each contains
+      computed metrics, widget data, and optional metadata tags.
+    type: resource
+    relatedTerms:
+      - Report
+      - TestSuite
+
+  - term: Report
+    definition: >
+      An Evidently output object that computes and visualises a set of metrics
+      over a reference and current dataset. Stored as a snapshot on the platform.
+    type: resource
+    relatedTerms:
+      - Snapshot
+      - Metric
+
+  - term: TestSuite
+    definition: >
+      An Evidently output object that runs a set of conditional tests over data
+      and returns pass/fail results. Stored as a snapshot on the platform.
+    type: resource
+    relatedTerms:
+      - Snapshot
+      - Test
+
+  - term: Project
+    definition: >
+      The top-level organisational container in the Evidently platform. A project
+      groups related snapshots, dashboards, datasets, and artifacts belonging to
+      a single ML or LLM system under observation.
+    type: resource
+
+  - term: Dashboard
+    definition: >
+      A configurable monitoring view in the Evidently platform that displays
+      time-series panel charts derived from snapshot metrics. Each project has
+      one dashboard.
+    type: resource
+    relatedTerms:
+      - Project
+      - Panel
+
+  - term: Metric
+    definition: >
+      A computed statistical measure calculated over a dataset within a Report.
+      Evidently ships over 100 built-in metrics covering data drift, data quality,
+      model performance, and LLM output quality.
+    type: concept
+    examples:
+      - DatasetDriftMetric
+      - ColumnDriftMetric
+      - DatasetMissingValuesMetric
+      - TextEvals
+
+  - term: DataDrift
+    definition: >
+      A class of Evidently metrics that detect statistical distribution shifts
+      between a reference dataset and a current dataset. Supports tabular,
+      text, and embedding column types.
+    type: concept
+    relatedTerms:
+      - Metric
+
+  - term: DataQuality
+    definition: >
+      A class of Evidently metrics that measure data completeness, correctness,
+      and consistency — including missing values, duplicates, and column statistics.
+    type: concept
+    relatedTerms:
+      - Metric
+
+  - term: LLMEvaluation
+    definition: >
+      Automated scoring of LLM-generated text outputs using Evidently's TextEvals
+      metric suite, which includes built-in judges for correctness, relevance,
+      toxicity, and custom LLM-judge prompts.
+    type: concept
+    relatedTerms:
+      - Metric
+      - Trace
+
+  - term: Trace
+    definition: >
+      A recorded interaction with an LLM application (prompt + response pairs)
+      collected via the Tracely SDK or OpenTelemetry-compatible instrumentation.
+      Traces are uploaded to the platform for evaluation and monitoring.
+    type: resource
+    relatedTerms:
+      - LLMEvaluation
+
+  - term: Dataset
+    definition: >
+      A tabular data file (CSV/Parquet) uploaded to the Evidently platform and
+      associated with a project. Datasets can be linked to snapshots and used
+      for reproducible evaluations.
+    type: resource
+
+  - term: Artifact
+    definition: >
+      A versioned model asset stored in the Evidently platform — for example,
+      a trained model, a prompt template, or an evaluation configuration — tracked
+      across multiple versions.
+    type: resource
+
+  - term: ArtifactVersion
+    definition: >
+      An immutable, numbered revision of an Evidently Artifact. Each version
+      stores the artifact payload and creation metadata.
+    type: resource
+    relatedTerms:
+      - Artifact
+
+  - term: BearerToken
+    definition: >
+      The authentication credential required to call the Evidently Platform REST API.
+      Obtained from the Evidently platform settings page and passed as the
+      Authorization: Bearer <token> header or via the EVIDENTLY_API_KEY env var.
+    type: securityScheme
+
+  - term: ColumnMapping
+    definition: >
+      An Evidently configuration object that specifies the roles of columns in a
+      dataset — target, prediction, features, text columns, embeddings, etc.
+      Required for task-specific metrics.
+    type: configuration
+
+  - term: Preset
+    definition: >
+      A pre-packaged bundle of related Evidently metrics or tests covering a
+      common monitoring scenario (e.g. DataDriftPreset, DataQualityPreset,
+      TextOverviewPreset). Presets simplify report configuration.
+    type: configuration
+
+  - term: Panel
+    definition: >
+      A single visualisation widget on an Evidently Dashboard that plots a
+      metric time-series. Panels are configured with a metric type, optional
+      label filters, and display settings.
+    type: resource
+    relatedTerms:
+      - Dashboard
+
+  - term: EVIDENTLY_API_KEY
+    definition: >
+      The environment variable used to supply the API authentication token to the
+      Evidently Python SDK (CloudWorkspace) and CI integrations.
+    type: configuration
+
+  - term: CloudWorkspace
+    definition: >
+      The Evidently Python SDK client class that connects to the hosted Evidently
+      platform (app.evidently.cloud) or a self-hosted instance using an API key.
+    type: sdkConcept
+
+  - term: Litestar
+    definition: >
+      The Python ASGI web framework used to build the Evidently Platform REST API.
+      Routes are mounted under /api and /api/v2.
+    type: implementation

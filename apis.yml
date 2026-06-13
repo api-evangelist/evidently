@@ -49,6 +49,8 @@ apis:
         url: https://docs.evidentlyai.com/
       - type: OpenAPI
         url: https://docs.evidentlyai.com/api-reference/openapi.json
+      - type: OpenAPI
+        url: openapi/evidently-platform-openapi.yml
       - type: Python SDK
         url: https://pypi.org/project/evidently/
       - type: GitHubRepository
@@ -74,6 +76,12 @@ common:
     url: rate-limits/evidently-rate-limits.yml
   - type: FinOps
     url: finops/evidently-finops.yml
+  - type: Vocabulary
+    url: vocabulary/evidently-vocabulary.yml
+  - type: JSONLDContext
+    url: json-ld/evidently-context.jsonld
+  - type: Blog
+    url: blogs/blogs.json
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

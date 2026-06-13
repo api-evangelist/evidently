@@ -1,0 +1,120 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "schema": "https://schema.org/",
+    "evidently": "https://www.evidentlyai.com/vocab#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+    "name":           { "@id": "schema:name" },
+    "description":    { "@id": "schema:description" },
+    "url":            { "@id": "schema:url", "@type": "@id" },
+    "version":        { "@id": "schema:version" },
+    "dateCreated":    { "@id": "schema:dateCreated", "@type": "xsd:dateTime" },
+    "dateModified":   { "@id": "schema:dateModified", "@type": "xsd:dateTime" },
+    "identifier":     { "@id": "schema:identifier" },
+
+    "Project": {
+      "@id": "evidently:Project",
+      "@type": "@id",
+      "description": "Top-level container grouping snapshots, datasets, and dashboards for a monitored ML or LLM system"
+    },
+    "Snapshot": {
+      "@id": "evidently:Snapshot",
+      "@type": "@id",
+      "description": "A serialised Evidently Report or TestSuite result stored at a point in time"
+    },
+    "Report": {
+      "@id": "evidently:Report",
+      "@type": "@id",
+      "description": "An Evidently output that computes and visualises metrics over a reference and current dataset"
+    },
+    "TestSuite": {
+      "@id": "evidently:TestSuite",
+      "@type": "@id",
+      "description": "An Evidently output that evaluates conditional tests over data and returns pass/fail results"
+    },
+    "Dataset": {
+      "@id": "evidently:Dataset",
+      "@type": "@id",
+      "description": "A tabular data file uploaded to the Evidently platform linked to a project"
+    },
+    "Artifact": {
+      "@id": "evidently:Artifact",
+      "@type": "@id",
+      "description": "A versioned model asset (model file, prompt template, configuration) tracked on the platform"
+    },
+    "ArtifactVersion": {
+      "@id": "evidently:ArtifactVersion",
+      "@type": "@id",
+      "description": "An immutable, numbered revision of an Evidently Artifact"
+    },
+    "Dashboard": {
+      "@id": "evidently:Dashboard",
+      "@type": "@id",
+      "description": "A configurable time-series monitoring view composed of metric panels"
+    },
+    "Panel": {
+      "@id": "evidently:Panel",
+      "@type": "@id",
+      "description": "A single visualisation widget within an Evidently Dashboard"
+    },
+    "Metric": {
+      "@id": "evidently:Metric",
+      "@type": "@id",
+      "description": "A computed statistical measure calculated over a dataset within a Report"
+    },
+    "Trace": {
+      "@id": "evidently:Trace",
+      "@type": "@id",
+      "description": "A recorded LLM application interaction (prompt + response) uploaded for evaluation"
+    },
+
+    "projectId":        { "@id": "evidently:projectId" },
+    "snapshotId":       { "@id": "evidently:snapshotId" },
+    "teamId":           { "@id": "evidently:teamId" },
+    "orgId":            { "@id": "evidently:orgId" },
+    "timestamp":        { "@id": "evidently:timestamp", "@type": "xsd:dateTime" },
+    "tags":             { "@id": "evidently:tags", "@container": "@set" },
+    "metadata":         { "@id": "evidently:metadata" },
+    "panels":           { "@id": "evidently:panels", "@container": "@list" },
+    "metrics":          { "@id": "evidently:metrics", "@container": "@set" },
+    "metricType":       { "@id": "evidently:metricType" },
+    "dataDefinition":   { "@id": "evidently:dataDefinition" },
+    "links":            { "@id": "evidently:links", "@container": "@set" },
+    "artifactVersion":  { "@id": "evidently:artifactVersion" },
+
+    "baseURL":    { "@id": "evidently:baseURL", "@type": "@id" },
+    "humanURL":   { "@id": "schema:url", "@type": "@id" },
+    "apiKey":     { "@id": "evidently:apiKey" },
+    "authHeader": { "@id": "evidently:authHeader" }
+  },
+
+  "@graph": [
+    {
+      "@id": "https://www.evidentlyai.com/",
+      "@type": "schema:SoftwareApplication",
+      "name": "Evidently AI",
+      "description": "Open-source ML and LLM observability framework for evaluating, testing, and monitoring AI-powered systems and data pipelines in production",
+      "url": "https://www.evidentlyai.com/",
+      "schema:applicationCategory": "ML Observability Platform",
+      "schema:license": "https://www.apache.org/licenses/LICENSE-2.0",
+      "schema:codeRepository": "https://github.com/evidentlyai/evidently",
+      "schema:offers": {
+        "@type": "schema:Offer",
+        "schema:description": "Open-source self-hosted deployment"
+      }
+    },
+    {
+      "@id": "https://app.evidently.cloud/api",
+      "@type": "schema:WebAPI",
+      "name": "Evidently Platform REST API",
+      "description": "REST API for managing Evidently projects, snapshots, datasets, dashboards, and artifacts on the Evidently platform",
+      "url": "https://docs.evidentlyai.com/",
+      "baseURL": "https://app.evidently.cloud/api",
+      "schema:version": "0.7.17",
+      "schema:documentation": "https://docs.evidentlyai.com/",
+      "schema:programmingLanguage": "Python",
+      "authHeader": "Authorization: Bearer <EVIDENTLY_API_KEY>"
+    }
+  ]
+}
