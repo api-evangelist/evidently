@@ -6,5 +6,17 @@
   "rssAvailable": false,
   "note": "No RSS or Atom feed detected for the Evidently AI blog as of 2026-06-13. The blog is hosted on the evidentlyai.com website without a discoverable feed endpoint.",
   "lastChecked": "2026-06-13",
-  "posts": []
+  "posts": [],
+  "repo": "evidently",
+  "feeds": [
+    {
+      "source": "https://www.linkedin.com/company/evidently-ai/",
+      "feed_url": "https://www.linkedin.com/company/evidently-ai/",
+      "title": "",
+      "saved": 0,
+      "method": "none"
+    }
+  ],
+  "post_count": 0,
+  "fetched": "2026-06-14T20:42:17Z"
 }
