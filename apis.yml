@@ -11,7 +11,7 @@ description: >
   Cloud (now discontinued as SaaS) so teams can run the full platform within their own
   infrastructure.
 type: Index
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 url: https://raw.githubusercontent.com/api-evangelist/evidently/refs/heads/main/apis.yml
 created: '2026-06-13'
 modified: '2026-06-13'
@@ -35,7 +35,7 @@ apis:
       run scheduled evaluations, and query monitoring dashboards. Authentication uses bearer
       token (API key) passed via the EVIDENTLY_API_KEY environment variable or directly in the
       CloudWorkspace client. The base URL for the hosted platform is https://app.evidently.cloud.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://docs.evidentlyai.com/
     baseURL: https://app.evidently.cloud
     tags:
