@@ -56,6 +56,10 @@ apis:
       - type: GitHubRepository
         url: https://github.com/evidentlyai/evidently
 common:
+  - type: DomainSecurity
+    url: security/evidently-domain-security.yml
+  - type: Authentication
+    url: authentication/evidently-authentication.yml
   - type: Website
     url: https://www.evidentlyai.com/
   - type: Documentation
