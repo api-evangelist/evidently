@@ -1,0 +1,119 @@
+openapi: 3.0.1
+info:
+  title: Evidently Platform REST Dashboards API
+  description: 'The Evidently Platform REST API provides programmatic access to the Evidently AI observability platform. It enables developers to manage projects, upload evaluation snapshots, query monitoring dashboards, manage datasets, and run trace-based LLM evaluations. Authentication uses a Bearer token (API key) passed via the Authorization header or configured through the EVIDENTLY_API_KEY environment variable. The API is built on the Litestar ASGI framework and exposes versioned routes under /api and /api/v2.
+
+    '
+  version: 0.7.17
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+  contact:
+    name: Evidently AI
+    url: https://www.evidentlyai.com/
+    email: hello@evidentlyai.com
+servers:
+- url: https://app.evidently.cloud/api
+  description: Evidently Cloud (hosted platform)
+- url: http://localhost:8000/api
+  description: Self-hosted / local instance
+security:
+- bearerAuth: []
+tags:
+- name: Dashboards
+  description: Manage project monitoring dashboards
+paths:
+  /v2/dashboards/{project_id}:
+    get:
+      operationId: getProjectDashboard
+      summary: Get project dashboard
+      description: Returns the monitoring dashboard configuration for a project.
+      tags:
+      - Dashboards
+      parameters:
+      - $ref: '#/components/parameters/ProjectId'
+      responses:
+        '200':
+          description: Dashboard model
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DashboardModel'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: updateProjectDashboard
+      summary: Update project dashboard
+      description: Saves an updated dashboard configuration for a project.
+      tags:
+      - Dashboards
+      parameters:
+      - $ref: '#/components/parameters/ProjectId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DashboardModel'
+      responses:
+        '200':
+          description: Updated dashboard model
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DashboardModel'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    DashboardModel:
+      type: object
+      description: Project monitoring dashboard configuration
+      properties:
+        id:
+          type: string
+          format: uuid
+        project_id:
+          type: string
+          format: uuid
+        panels:
+          type: array
+          description: Dashboard panel configurations
+          items:
+            type: object
+            additionalProperties: true
+    ErrorDetail:
+      type: object
+      description: Error response body
+      properties:
+        detail:
+          type: string
+          description: Human-readable error message
+          example: project not found
+        status_code:
+          type: integer
+          example: 404
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorDetail'
+  parameters:
+    ProjectId:
+      name: project_id
+      in: path
+      required: true
+      description: UUID of the project
+      schema:
+        type: string
+        format: uuid
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: API Key
+      description: 'Bearer token (API key) obtained from the Evidently platform settings. Set via the Authorization header or the EVIDENTLY_API_KEY environment variable.
+
+        '

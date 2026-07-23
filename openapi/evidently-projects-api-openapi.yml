@@ -1,0 +1,343 @@
+openapi: 3.0.1
+info:
+  title: Evidently Platform REST Dashboards Projects API
+  description: 'The Evidently Platform REST API provides programmatic access to the Evidently AI observability platform. It enables developers to manage projects, upload evaluation snapshots, query monitoring dashboards, manage datasets, and run trace-based LLM evaluations. Authentication uses a Bearer token (API key) passed via the Authorization header or configured through the EVIDENTLY_API_KEY environment variable. The API is built on the Litestar ASGI framework and exposes versioned routes under /api and /api/v2.
+
+    '
+  version: 0.7.17
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+  contact:
+    name: Evidently AI
+    url: https://www.evidentlyai.com/
+    email: hello@evidentlyai.com
+servers:
+- url: https://app.evidently.cloud/api
+  description: Evidently Cloud (hosted platform)
+- url: http://localhost:8000/api
+  description: Self-hosted / local instance
+security:
+- bearerAuth: []
+tags:
+- name: Projects
+  description: Manage Evidently projects — create, list, update, delete
+paths:
+  /projects/:
+    get:
+      operationId: listProjects
+      summary: List all projects
+      description: Returns all projects accessible to the authenticated user, optionally filtered by team or organisation.
+      tags:
+      - Projects
+      parameters:
+      - name: team_id
+        in: query
+        description: Filter projects by team ID
+        required: false
+        schema:
+          type: string
+          format: uuid
+      - name: org_id
+        in: query
+        description: Filter projects by organisation ID
+        required: false
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: List of projects
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Project'
+    post:
+      operationId: addProject
+      summary: Create a project
+      description: Creates a new Evidently project for the authenticated user.
+      tags:
+      - Projects
+      parameters:
+      - name: org_id
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Project'
+      responses:
+        '201':
+          description: ID of the newly created project
+          content:
+            application/json:
+              schema:
+                type: string
+                format: uuid
+  /projects/search/{project_name}:
+    get:
+      operationId: searchProjects
+      summary: Search projects by name
+      description: Returns projects whose name matches the given string, filtered optionally by team or org.
+      tags:
+      - Projects
+      parameters:
+      - name: project_name
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: team_id
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+      - name: org_id
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: Matching projects
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Project'
+  /projects/{project_id}/info:
+    get:
+      operationId: getProjectInfo
+      summary: Get project details
+      description: Returns metadata and settings for a single project.
+      tags:
+      - Projects
+      parameters:
+      - $ref: '#/components/parameters/ProjectId'
+      responses:
+        '200':
+          description: Project details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: updateProjectInfo
+      summary: Update project info
+      description: Updates project metadata fields (name, description, etc.).
+      tags:
+      - Projects
+      parameters:
+      - $ref: '#/components/parameters/ProjectId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Project'
+      responses:
+        '200':
+          description: Updated project
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /projects/{project_id}:
+    delete:
+      operationId: deleteProject
+      summary: Delete a project
+      description: Permanently deletes a project and all its snapshots.
+      tags:
+      - Projects
+      parameters:
+      - $ref: '#/components/parameters/ProjectId'
+      responses:
+        '204':
+          description: Project deleted
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /projects/{project_id}/reload:
+    get:
+      operationId: reloadProjectSnapshots
+      summary: Reload project snapshots
+      description: Forces a reload of all snapshots cached for this project.
+      tags:
+      - Projects
+      parameters:
+      - $ref: '#/components/parameters/ProjectId'
+      responses:
+        '200':
+          description: Reload triggered
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /v2/projects/:
+    get:
+      operationId: listProjectsV2
+      summary: List projects (v2)
+      description: v2 variant of list projects with extended response models.
+      tags:
+      - Projects
+      parameters:
+      - name: team_id
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+      - name: org_id
+        in: query
+        required: false
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: List of projects
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Project'
+    post:
+      operationId: addProjectV2
+      summary: Create a project (v2)
+      description: Creates a new project (v2 route).
+      tags:
+      - Projects
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Project'
+      responses:
+        '201':
+          description: Created project ID
+          content:
+            application/json:
+              schema:
+                type: string
+                format: uuid
+  /v2/projects/{project_id}:
+    patch:
+      operationId: updateProjectV2
+      summary: Update a project (v2)
+      description: Performs a partial update of project fields using PATCH semantics.
+      tags:
+      - Projects
+      parameters:
+      - $ref: '#/components/parameters/ProjectId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Project'
+      responses:
+        '200':
+          description: Updated project ID
+          content:
+            application/json:
+              schema:
+                type: string
+                format: uuid
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteProjectV2
+      summary: Delete a project (v2)
+      description: Permanently deletes a project (v2 route).
+      tags:
+      - Projects
+      parameters:
+      - $ref: '#/components/parameters/ProjectId'
+      responses:
+        '204':
+          description: Project deleted
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    Project:
+      type: object
+      description: An Evidently project — the top-level container for snapshots and dashboards
+      required:
+      - name
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          description: Human-readable project name
+          example: My LLM Monitor
+        description:
+          type: string
+          description: Optional project description
+        team_id:
+          type: string
+          format: uuid
+          description: Team that owns this project
+        org_id:
+          type: string
+          format: uuid
+          description: Organisation that owns this project
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+    ErrorDetail:
+      type: object
+      description: Error response body
+      properties:
+        detail:
+          type: string
+          description: Human-readable error message
+          example: project not found
+        status_code:
+          type: integer
+          example: 404
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorDetail'
+  parameters:
+    ProjectId:
+      name: project_id
+      in: path
+      required: true
+      description: UUID of the project
+      schema:
+        type: string
+        format: uuid
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: API Key
+      description: 'Bearer token (API key) obtained from the Evidently platform settings. Set via the Authorization header or the EVIDENTLY_API_KEY environment variable.
+
+        '

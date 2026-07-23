@@ -1,0 +1,483 @@
+openapi: 3.0.1
+info:
+  title: Evidently Platform REST Dashboards Snapshots API
+  description: 'The Evidently Platform REST API provides programmatic access to the Evidently AI observability platform. It enables developers to manage projects, upload evaluation snapshots, query monitoring dashboards, manage datasets, and run trace-based LLM evaluations. Authentication uses a Bearer token (API key) passed via the Authorization header or configured through the EVIDENTLY_API_KEY environment variable. The API is built on the Litestar ASGI framework and exposes versioned routes under /api and /api/v2.
+
+    '
+  version: 0.7.17
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+  contact:
+    name: Evidently AI
+    url: https://www.evidentlyai.com/
+    email: hello@evidentlyai.com
+servers:
+- url: https://app.evidently.cloud/api
+  description: Evidently Cloud (hosted platform)
+- url: http://localhost:8000/api
+  description: Self-hosted / local instance
+security:
+- bearerAuth: []
+tags:
+- name: Snapshots
+  description: Upload and query evaluation snapshots (reports and test suites)
+paths:
+  /projects/{project_id}/reports:
+    get:
+      operationId: listReports
+      summary: List reports for a project
+      description: Returns all snapshot-based reports stored under this project.
+      tags:
+      - Snapshots
+      parameters:
+      - $ref: '#/components/parameters/ProjectId'
+      responses:
+        '200':
+          description: List of reports
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ReportModel'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /projects/{project_id}/snapshots:
+    get:
+      operationId: listSnapshots
+      summary: List snapshots for a project
+      description: Returns metadata for all snapshots (reports and test suites) stored in this project.
+      tags:
+      - Snapshots
+      parameters:
+      - $ref: '#/components/parameters/ProjectId'
+      responses:
+        '200':
+          description: Snapshot metadata list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SnapshotMetadata'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /projects/{project_id}/{snapshot_id}/metadata:
+    get:
+      operationId: getSnapshotMetadata
+      summary: Get snapshot metadata
+      description: Returns metadata for a single snapshot identified by its UUID.
+      tags:
+      - Snapshots
+      parameters:
+      - $ref: '#/components/parameters/ProjectId'
+      - $ref: '#/components/parameters/SnapshotId'
+      responses:
+        '200':
+          description: Snapshot metadata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SnapshotMetadata'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /projects/{project_id}/{snapshot_id}/data:
+    get:
+      operationId: getSnapshotData
+      summary: Get snapshot widget data
+      description: Returns JSON-serialised dashboard/widget data for a snapshot.
+      tags:
+      - Snapshots
+      parameters:
+      - $ref: '#/components/parameters/ProjectId'
+      - $ref: '#/components/parameters/SnapshotId'
+      responses:
+        '200':
+          description: Dashboard info JSON
+          content:
+            application/json:
+              schema:
+                type: string
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /projects/{project_id}/{snapshot_id}/download:
+    get:
+      operationId: downloadSnapshot
+      summary: Download a snapshot
+      description: Downloads a snapshot as HTML or JSON. Use the `report_format` query parameter to choose format.
+      tags:
+      - Snapshots
+      parameters:
+      - $ref: '#/components/parameters/ProjectId'
+      - $ref: '#/components/parameters/SnapshotId'
+      - name: report_format
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+          default: html
+      responses:
+        '200':
+          description: Snapshot file download
+          content:
+            text/html:
+              schema:
+                type: string
+                format: binary
+            application/json:
+              schema:
+                type: string
+                format: binary
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /projects/{project_id}/{snapshot_id}/graphs_data/{graph_id}:
+    get:
+      operationId: getSnapshotGraphData
+      summary: Get graph data from a snapshot
+      description: Returns JSON data for a specific graph widget within a snapshot.
+      tags:
+      - Snapshots
+      parameters:
+      - $ref: '#/components/parameters/ProjectId'
+      - $ref: '#/components/parameters/SnapshotId'
+      - name: graph_id
+        in: path
+        required: true
+        description: ID of the graph widget within the snapshot
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Graph widget data JSON
+          content:
+            application/json:
+              schema:
+                type: string
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /v2/snapshots/{project_id}:
+    post:
+      operationId: addSnapshot
+      summary: Upload a snapshot
+      description: 'Uploads a serialised Evidently snapshot (report or test suite) to a project. The request body should be a JSON-encoded SnapshotModel object.
+
+        '
+      tags:
+      - Snapshots
+      parameters:
+      - $ref: '#/components/parameters/ProjectId'
+      requestBody:
+        required: true
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: binary
+      responses:
+        '201':
+          description: Snapshot upload result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddSnapshotResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /v2/snapshots/{project_id}/{snapshot_id}:
+    delete:
+      operationId: deleteSnapshot
+      summary: Delete a snapshot
+      description: Permanently removes a snapshot from a project.
+      tags:
+      - Snapshots
+      parameters:
+      - $ref: '#/components/parameters/ProjectId'
+      - $ref: '#/components/parameters/SnapshotId'
+      responses:
+        '204':
+          description: Snapshot deleted
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /v2/snapshots/{project_id}/metrics:
+    get:
+      operationId: getSnapshotsMetrics
+      summary: List snapshot metrics
+      description: Returns the list of metric types recorded in snapshots for a project, optionally filtered by tags and metadata.
+      tags:
+      - Snapshots
+      parameters:
+      - $ref: '#/components/parameters/ProjectId'
+      - name: tags
+        in: query
+        required: false
+        schema:
+          type: string
+          description: JSON-encoded list of tag strings
+      - name: metadata
+        in: query
+        required: false
+        schema:
+          type: string
+          description: JSON-encoded key-value metadata map
+      responses:
+        '200':
+          description: List of metric type names
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MetricsList'
+  /v2/snapshots/{project_id}/labels:
+    get:
+      operationId: getSnapshotsMetricLabels
+      summary: List metric labels
+      description: Returns the label keys for a given metric type across all snapshots in a project.
+      tags:
+      - Snapshots
+      parameters:
+      - $ref: '#/components/parameters/ProjectId'
+      - name: metric_type
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: tags
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: metadata
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Label keys
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LabelsList'
+  /v2/snapshots/{project_id}/label_values:
+    get:
+      operationId: getSnapshotsMetricLabelValues
+      summary: List metric label values
+      description: Returns the distinct values for a metric label across all snapshots in a project.
+      tags:
+      - Snapshots
+      parameters:
+      - $ref: '#/components/parameters/ProjectId'
+      - name: metric_type
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: label
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: tags
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: metadata
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Label values
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LabelValuesList'
+  /v2/snapshots/{project_id}/data_series_batch:
+    post:
+      operationId: getSnapshotsMetricsDataBatch
+      summary: Get metric data series (batch)
+      description: 'Returns time-series data for one or more metrics across all snapshots in a project, optionally bounded by timestamp range.
+
+        '
+      tags:
+      - Snapshots
+      parameters:
+      - $ref: '#/components/parameters/ProjectId'
+      - name: timestamp_start
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: timestamp_end
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchMetricData'
+      responses:
+        '200':
+          description: Series data response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SeriesResponse'
+components:
+  schemas:
+    MetricsList:
+      type: object
+      description: List of metric type identifiers
+      properties:
+        metrics:
+          type: array
+          items:
+            type: string
+          example:
+          - DatasetDriftMetric
+          - ColumnDriftMetric
+          - DatasetMissingValuesMetric
+    BatchMetricData:
+      type: object
+      description: Request body for batch metric data series retrieval
+      properties:
+        series_filter:
+          type: array
+          description: List of metric series filters
+          items:
+            type: object
+            additionalProperties: true
+    AddSnapshotResponse:
+      type: object
+      description: Response returned after a successful snapshot upload
+      properties:
+        snapshot_id:
+          type: string
+          format: uuid
+    LabelValuesList:
+      type: object
+      description: Distinct values for a metric label
+      properties:
+        label_values:
+          type: array
+          items:
+            type: string
+    LabelsList:
+      type: object
+      description: List of label keys for a metric
+      properties:
+        labels:
+          type: array
+          items:
+            type: string
+    SnapshotMetadata:
+      type: object
+      description: Metadata for a single Evidently snapshot (report or test suite)
+      properties:
+        id:
+          type: string
+          format: uuid
+        project_id:
+          type: string
+          format: uuid
+        timestamp:
+          type: string
+          format: date-time
+        metadata:
+          type: object
+          additionalProperties: true
+        tags:
+          type: array
+          items:
+            type: string
+        links:
+          type: array
+          description: Links to associated datasets
+          items:
+            type: object
+    ReportModel:
+      type: object
+      description: Summary metadata for a snapshot-based report
+      properties:
+        id:
+          type: string
+          format: uuid
+        project_id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        metadata:
+          type: object
+          additionalProperties: true
+        tags:
+          type: array
+          items:
+            type: string
+    ErrorDetail:
+      type: object
+      description: Error response body
+      properties:
+        detail:
+          type: string
+          description: Human-readable error message
+          example: project not found
+        status_code:
+          type: integer
+          example: 404
+    SeriesResponse:
+      type: object
+      description: Time-series data response for metrics across snapshots
+      additionalProperties: true
+  responses:
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorDetail'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorDetail'
+  parameters:
+    ProjectId:
+      name: project_id
+      in: path
+      required: true
+      description: UUID of the project
+      schema:
+        type: string
+        format: uuid
+    SnapshotId:
+      name: snapshot_id
+      in: path
+      required: true
+      description: UUID of the snapshot
+      schema:
+        type: string
+        format: uuid
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: API Key
+      description: 'Bearer token (API key) obtained from the Evidently platform settings. Set via the Authorization header or the EVIDENTLY_API_KEY environment variable.
+
+        '

@@ -1,0 +1,66 @@
+openapi: 3.0.1
+info:
+  title: Evidently Platform REST Dashboards Service API
+  description: 'The Evidently Platform REST API provides programmatic access to the Evidently AI observability platform. It enables developers to manage projects, upload evaluation snapshots, query monitoring dashboards, manage datasets, and run trace-based LLM evaluations. Authentication uses a Bearer token (API key) passed via the Authorization header or configured through the EVIDENTLY_API_KEY environment variable. The API is built on the Litestar ASGI framework and exposes versioned routes under /api and /api/v2.
+
+    '
+  version: 0.7.17
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+  contact:
+    name: Evidently AI
+    url: https://www.evidentlyai.com/
+    email: hello@evidentlyai.com
+servers:
+- url: https://app.evidently.cloud/api
+  description: Evidently Cloud (hosted platform)
+- url: http://localhost:8000/api
+  description: Self-hosted / local instance
+security:
+- bearerAuth: []
+tags:
+- name: Service
+  description: Service metadata and version information
+paths:
+  /version:
+    get:
+      operationId: getVersion
+      summary: Get service version
+      description: Returns the current Evidently application name, version string, and git commit hash.
+      tags:
+      - Service
+      security: []
+      responses:
+        '200':
+          description: Version information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Version'
+components:
+  schemas:
+    Version:
+      type: object
+      description: Service version metadata
+      properties:
+        application:
+          type: string
+          description: Application name
+          example: Evidently UI
+        version:
+          type: string
+          description: Package version string
+          example: 0.7.17
+        commit:
+          type: string
+          description: Short git commit hash
+          example: abc1234
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: API Key
+      description: 'Bearer token (API key) obtained from the Evidently platform settings. Set via the Authorization header or the EVIDENTLY_API_KEY environment variable.
+
+        '
