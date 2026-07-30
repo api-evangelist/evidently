@@ -11,7 +11,20 @@ description: >
   Cloud (now discontinued as SaaS) so teams can run the full platform within their own
   infrastructure.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/evidently.png
 url: https://raw.githubusercontent.com/api-evangelist/evidently/refs/heads/main/apis.yml
 created: '2026-06-13'
 modified: '2026-06-13'
@@ -28,33 +41,70 @@ tags:
   - LLMOps
   - Generative AI
 apis:
-  - name: Evidently Platform REST API
-    description: >
-      The Evidently Platform REST API provides programmatic access to the Evidently observability
-      platform, enabling developers to manage projects, upload evaluation results, store traces,
-      run scheduled evaluations, and query monitoring dashboards. Authentication uses bearer
-      token (API key) passed via the EVIDENTLY_API_KEY environment variable or directly in the
-      CloudWorkspace client. The base URL for the hosted platform is https://app.evidently.cloud.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://docs.evidentlyai.com/
-    baseURL: https://app.evidently.cloud
-    tags:
-      - ML Monitoring
-      - LLM Observability
-      - REST API
-      - Data Drift
-      - Evaluation
-    properties:
-      - type: Documentation
-        url: https://docs.evidentlyai.com/
-      - type: OpenAPI
-        url: https://docs.evidentlyai.com/api-reference/openapi.json
-      - type: OpenAPI
-        url: openapi/evidently-platform-openapi.yml
-      - type: Python SDK
-        url: https://pypi.org/project/evidently/
-      - type: GitHubRepository
-        url: https://github.com/evidentlyai/evidently
+- aid: evidently:evidently-dashboards-api
+  name: Evidently AI Dashboards API
+  description: Manage project monitoring dashboards
+  humanURL: https://docs.evidentlyai.com/
+  baseURL: https://app.evidently.cloud
+  tags:
+  - Dashboards
+  properties:
+  - type: OpenAPI
+    url: openapi/evidently-dashboards-api-openapi.yml
+  - type: Documentation
+    url: https://docs.evidentlyai.com/
+  - type: Python SDK
+    url: https://pypi.org/project/evidently/
+  - type: GitHubRepository
+    url: https://github.com/evidentlyai/evidently
+- aid: evidently:evidently-projects-api
+  name: Evidently AI Projects API
+  description: Manage Evidently projects — create, list, update, delete
+  humanURL: https://docs.evidentlyai.com/
+  baseURL: https://app.evidently.cloud
+  tags:
+  - Projects
+  properties:
+  - type: OpenAPI
+    url: openapi/evidently-projects-api-openapi.yml
+  - type: Documentation
+    url: https://docs.evidentlyai.com/
+  - type: Python SDK
+    url: https://pypi.org/project/evidently/
+  - type: GitHubRepository
+    url: https://github.com/evidentlyai/evidently
+- aid: evidently:evidently-service-api
+  name: Evidently AI Service API
+  description: Service metadata and version information
+  humanURL: https://docs.evidentlyai.com/
+  baseURL: https://app.evidently.cloud
+  tags:
+  - Service
+  properties:
+  - type: OpenAPI
+    url: openapi/evidently-service-api-openapi.yml
+  - type: Documentation
+    url: https://docs.evidentlyai.com/
+  - type: Python SDK
+    url: https://pypi.org/project/evidently/
+  - type: GitHubRepository
+    url: https://github.com/evidentlyai/evidently
+- aid: evidently:evidently-snapshots-api
+  name: Evidently AI Snapshots API
+  description: Upload and query evaluation snapshots (reports and test suites)
+  humanURL: https://docs.evidentlyai.com/
+  baseURL: https://app.evidently.cloud
+  tags:
+  - Snapshots
+  properties:
+  - type: OpenAPI
+    url: openapi/evidently-snapshots-api-openapi.yml
+  - type: Documentation
+    url: https://docs.evidentlyai.com/
+  - type: Python SDK
+    url: https://pypi.org/project/evidently/
+  - type: GitHubRepository
+    url: https://github.com/evidentlyai/evidently
 common:
   - type: AgenticAccess
     url: agentic-access/evidently-agentic-access.yml
