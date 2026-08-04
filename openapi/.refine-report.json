@@ -1,0 +1,20 @@
+{
+  "provider": "evidently",
+  "sources": [
+    "evidently-dashboards-api-openapi.yml",
+    "evidently-projects-api-openapi.yml",
+    "evidently-service-api-openapi.yml",
+    "evidently-snapshots-api-openapi.yml"
+  ],
+  "outputs": [
+    "evidently-dashboards-api-openapi.yml",
+    "evidently-projects-api-openapi.yml",
+    "evidently-service-api-openapi.yml",
+    "evidently-snapshots-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
