@@ -106,6 +106,15 @@ apis:
   - type: GitHubRepository
     url: https://github.com/evidentlyai/evidently
 common:
+  - type: IssueTracker
+    url: https://github.com/evidentlyai/evidently/issues
+  - type: Releases
+    url: https://github.com/evidentlyai/evidently/releases
+  - type: ContributionGuide
+    url: https://github.com/evidentlyai/evidently/blob/main/CONTRIBUTING.md
+  - type: License
+    name: Apache-2.0
+    url: https://github.com/evidentlyai/evidently/blob/main/LICENSE
   - type: AgenticAccess
     url: agentic-access/evidently-agentic-access.yml
   - type: DomainSecurity
