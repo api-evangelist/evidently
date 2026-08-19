@@ -1,0 +1,259 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Evidently Platform REST Dashboards Projects API",
+    "version": "0.7.17"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Projects",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all projects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.evidently.cloud/api/projects/",
+            "params": [
+              {
+                "name": "team_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter projects by team ID"
+              },
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter projects by organisation ID"
+              }
+            ]
+          },
+          "docs": "Returns all projects accessible to the authenticated user, optionally filtered by team or organisation."
+        },
+        {
+          "info": {
+            "name": "Create a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.evidently.cloud/api/projects/",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new Evidently project for the authenticated user."
+        },
+        {
+          "info": {
+            "name": "Search projects by name",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.evidently.cloud/api/projects/search/:project_name",
+            "params": [
+              {
+                "name": "project_name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "team_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns projects whose name matches the given string, filtered optionally by team or org."
+        },
+        {
+          "info": {
+            "name": "Get project details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.evidently.cloud/api/projects/:project_id/info",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the project"
+              }
+            ]
+          },
+          "docs": "Returns metadata and settings for a single project."
+        },
+        {
+          "info": {
+            "name": "Update project info",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.evidently.cloud/api/projects/:project_id/info",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the project"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates project metadata fields (name, description, etc.)."
+        },
+        {
+          "info": {
+            "name": "Delete a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.evidently.cloud/api/projects/:project_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the project"
+              }
+            ]
+          },
+          "docs": "Permanently deletes a project and all its snapshots."
+        },
+        {
+          "info": {
+            "name": "Reload project snapshots",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.evidently.cloud/api/projects/:project_id/reload",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the project"
+              }
+            ]
+          },
+          "docs": "Forces a reload of all snapshots cached for this project."
+        },
+        {
+          "info": {
+            "name": "List projects (v2)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.evidently.cloud/api/v2/projects/",
+            "params": [
+              {
+                "name": "team_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "v2 variant of list projects with extended response models."
+        },
+        {
+          "info": {
+            "name": "Create a project (v2)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.evidently.cloud/api/v2/projects/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new project (v2 route)."
+        },
+        {
+          "info": {
+            "name": "Update a project (v2)",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://app.evidently.cloud/api/v2/projects/:project_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the project"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Performs a partial update of project fields using PATCH semantics."
+        },
+        {
+          "info": {
+            "name": "Delete a project (v2)",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.evidently.cloud/api/v2/projects/:project_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the project"
+              }
+            ]
+          },
+          "docs": "Permanently deletes a project (v2 route)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

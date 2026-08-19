@@ -1,0 +1,352 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Evidently Platform REST Dashboards Snapshots API",
+    "version": "0.7.17"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Snapshots",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List reports for a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.evidently.cloud/api/projects/:project_id/reports",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the project"
+              }
+            ]
+          },
+          "docs": "Returns all snapshot-based reports stored under this project."
+        },
+        {
+          "info": {
+            "name": "List snapshots for a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.evidently.cloud/api/projects/:project_id/snapshots",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the project"
+              }
+            ]
+          },
+          "docs": "Returns metadata for all snapshots (reports and test suites) stored in this project."
+        },
+        {
+          "info": {
+            "name": "Get snapshot metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.evidently.cloud/api/projects/:project_id/:snapshot_id/metadata",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the project"
+              },
+              {
+                "name": "snapshot_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the snapshot"
+              }
+            ]
+          },
+          "docs": "Returns metadata for a single snapshot identified by its UUID."
+        },
+        {
+          "info": {
+            "name": "Get snapshot widget data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.evidently.cloud/api/projects/:project_id/:snapshot_id/data",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the project"
+              },
+              {
+                "name": "snapshot_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the snapshot"
+              }
+            ]
+          },
+          "docs": "Returns JSON-serialised dashboard/widget data for a snapshot."
+        },
+        {
+          "info": {
+            "name": "Download a snapshot",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.evidently.cloud/api/projects/:project_id/:snapshot_id/download",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the project"
+              },
+              {
+                "name": "snapshot_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the snapshot"
+              },
+              {
+                "name": "report_format",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Downloads a snapshot as HTML or JSON. Use the `report_format` query parameter to choose format."
+        },
+        {
+          "info": {
+            "name": "Get graph data from a snapshot",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.evidently.cloud/api/projects/:project_id/:snapshot_id/graphs_data/:graph_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the project"
+              },
+              {
+                "name": "snapshot_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the snapshot"
+              },
+              {
+                "name": "graph_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the graph widget within the snapshot"
+              }
+            ]
+          },
+          "docs": "Returns JSON data for a specific graph widget within a snapshot."
+        },
+        {
+          "info": {
+            "name": "Upload a snapshot",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.evidently.cloud/api/v2/snapshots/:project_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the project"
+              }
+            ]
+          },
+          "docs": "Uploads a serialised Evidently snapshot (report or test suite) to a project. The request body should be a JSON-encoded SnapshotModel object.\n"
+        },
+        {
+          "info": {
+            "name": "Delete a snapshot",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.evidently.cloud/api/v2/snapshots/:project_id/:snapshot_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the project"
+              },
+              {
+                "name": "snapshot_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the snapshot"
+              }
+            ]
+          },
+          "docs": "Permanently removes a snapshot from a project."
+        },
+        {
+          "info": {
+            "name": "List snapshot metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.evidently.cloud/api/v2/snapshots/:project_id/metrics",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the project"
+              },
+              {
+                "name": "tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "metadata",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns the list of metric types recorded in snapshots for a project, optionally filtered by tags and metadata."
+        },
+        {
+          "info": {
+            "name": "List metric labels",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.evidently.cloud/api/v2/snapshots/:project_id/labels",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the project"
+              },
+              {
+                "name": "metric_type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "metadata",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns the label keys for a given metric type across all snapshots in a project."
+        },
+        {
+          "info": {
+            "name": "List metric label values",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.evidently.cloud/api/v2/snapshots/:project_id/label_values",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the project"
+              },
+              {
+                "name": "metric_type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "label",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "metadata",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns the distinct values for a metric label across all snapshots in a project."
+        },
+        {
+          "info": {
+            "name": "Get metric data series (batch)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.evidently.cloud/api/v2/snapshots/:project_id/data_series_batch",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the project"
+              },
+              {
+                "name": "timestamp_start",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "timestamp_end",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns time-series data for one or more metrics across all snapshots in a project, optionally bounded by timestamp range.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,372 @@
+{
+  "item": [
+    {
+      "id": "a6376256-f469-4fef-88e9-347823e03889",
+      "name": "Dashboards",
+      "description": {
+        "content": "Manage project monitoring dashboards",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b383b6ab-4396-4ecd-ac5e-441ba8875c85",
+          "name": "Get project dashboard",
+          "request": {
+            "name": "Get project dashboard",
+            "description": {
+              "content": "Returns the monitoring dashboard configuration for a project.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "dashboards",
+                ":project_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "project_id",
+                  "description": "(Required) UUID of the project"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1d7391f1-e9ae-4860-be9d-d6997a1d1987",
+              "name": "Dashboard model",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "dashboards",
+                    ":project_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "project_id",
+                      "description": "(Required) UUID of the project"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"67bdd17c-b1cf-f8ef-3cf4-2b425bdb62d8\",\n  \"project_id\": \"10342f8b-63cc-7db8-4733-a80a893d8ff5\",\n  \"panels\": [\n    {\n      \"key_0\": 7220.780102904546,\n      \"key_1\": 2196.7269448296443\n    },\n    {\n      \"key_0\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "69aecdeb-d991-4fa3-b286-fbb9e9139a52",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "dashboards",
+                    ":project_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "project_id",
+                      "description": "(Required) UUID of the project"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"project not found\",\n  \"status_code\": 404\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2405b793-f15e-4b02-a16c-14de0334ddfa",
+          "name": "Update project dashboard",
+          "request": {
+            "name": "Update project dashboard",
+            "description": {
+              "content": "Saves an updated dashboard configuration for a project.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "dashboards",
+                ":project_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "project_id",
+                  "description": "(Required) UUID of the project"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<uuid>\",\n  \"project_id\": \"<uuid>\",\n  \"panels\": [\n    {\n      \"key_0\": 8766\n    },\n    {\n      \"key_0\": false,\n      \"key_1\": 6072.791187591013,\n      \"key_2\": \"string\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bda34679-5f69-405e-a1e0-cb914c073188",
+              "name": "Updated dashboard model",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "dashboards",
+                    ":project_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "project_id",
+                      "description": "(Required) UUID of the project"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<uuid>\",\n  \"project_id\": \"<uuid>\",\n  \"panels\": [\n    {\n      \"key_0\": 7855.697543010891,\n      \"key_1\": 1525.6201272589187\n    },\n    {\n      \"key_0\": 9171.89284420609,\n      \"key_1\": true\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"<uuid>\",\n  \"project_id\": \"<uuid>\",\n  \"panels\": [\n    {\n      \"key_0\": 7855.697543010891,\n      \"key_1\": 1525.6201272589187\n    },\n    {\n      \"key_0\": 9171.89284420609,\n      \"key_1\": true\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f1dbe50d-b140-4ec3-a3b3-fbe6cfec8b32",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "dashboards",
+                    ":project_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "project_id",
+                      "description": "(Required) UUID of the project"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<uuid>\",\n  \"project_id\": \"<uuid>\",\n  \"panels\": [\n    {\n      \"key_0\": 7855.697543010891,\n      \"key_1\": 1525.6201272589187\n    },\n    {\n      \"key_0\": 9171.89284420609,\n      \"key_1\": true\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"project not found\",\n  \"status_code\": 404\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://app.evidently.cloud/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "8f9d8667-9478-483a-8ae6-401c417a452c",
+    "name": "Evidently Platform REST Dashboards API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Evidently Platform REST API provides programmatic access to the Evidently AI observability platform. It enables developers to manage projects, upload evaluation snapshots, query monitoring dashboards, manage datasets, and run trace-based LLM evaluations. Authentication uses a Bearer token (API key) passed via the Authorization header or configured through the EVIDENTLY_API_KEY environment variable. The API is built on the Litestar ASGI framework and exposes versioned routes under /api and /api/v2.\n\n\nContact Support:\n Name: Evidently AI\n Email: hello@evidentlyai.com",
+      "type": "text/plain"
+    }
+  }
+}

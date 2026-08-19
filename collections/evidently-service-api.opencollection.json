@@ -1,0 +1,35 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Evidently Platform REST Dashboards Service API",
+    "version": "0.7.17"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Service",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get service version",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.evidently.cloud/api/version"
+          },
+          "docs": "Returns the current Evidently application name, version string, and git commit hash."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

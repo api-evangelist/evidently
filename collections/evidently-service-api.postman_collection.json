@@ -1,0 +1,119 @@
+{
+  "item": [
+    {
+      "id": "9b17b5fc-e899-4541-88e0-895af3ca5d0e",
+      "name": "Service",
+      "description": {
+        "content": "Service metadata and version information",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a6b5751c-6d01-4b5e-a239-9a9d23c5f276",
+          "name": "Get service version",
+          "request": {
+            "name": "Get service version",
+            "description": {
+              "content": "Returns the current Evidently application name, version string, and git commit hash.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "version"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "13c608b8-d2b4-4f68-9327-3ce67ca2d05d",
+              "name": "Version information",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "version"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"application\": \"Evidently UI\",\n  \"version\": \"0.7.17\",\n  \"commit\": \"abc1234\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://app.evidently.cloud/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "e6ab9f5a-4765-4f62-88bb-466eb9bb05d2",
+    "name": "Evidently Platform REST Dashboards Service API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Evidently Platform REST API provides programmatic access to the Evidently AI observability platform. It enables developers to manage projects, upload evaluation snapshots, query monitoring dashboards, manage datasets, and run trace-based LLM evaluations. Authentication uses a Bearer token (API key) passed via the Authorization header or configured through the EVIDENTLY_API_KEY environment variable. The API is built on the Litestar ASGI framework and exposes versioned routes under /api and /api/v2.\n\n\nContact Support:\n Name: Evidently AI\n Email: hello@evidentlyai.com",
+      "type": "text/plain"
+    }
+  }
+}

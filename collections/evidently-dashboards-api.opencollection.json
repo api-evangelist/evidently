@@ -1,0 +1,66 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Evidently Platform REST Dashboards API",
+    "version": "0.7.17"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Dashboards",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get project dashboard",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.evidently.cloud/api/v2/dashboards/:project_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the project"
+              }
+            ]
+          },
+          "docs": "Returns the monitoring dashboard configuration for a project."
+        },
+        {
+          "info": {
+            "name": "Update project dashboard",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.evidently.cloud/api/v2/dashboards/:project_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the project"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Saves an updated dashboard configuration for a project."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
