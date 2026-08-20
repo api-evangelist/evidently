@@ -36,6 +36,17 @@ tags:
   - Model Performance
   - AI Evaluation
   - Data Quality
+  - Open-Source
+  - MLOps
+  - LLMOps
+  - Generative AI
+tags_raw:
+  - ML Monitoring
+  - LLM Observability
+  - Data Drift
+  - Model Performance
+  - AI Evaluation
+  - Data Quality
   - Open Source
   - MLOps
   - LLMOps
@@ -63,6 +74,8 @@ apis:
   humanURL: https://docs.evidentlyai.com/
   baseURL: https://app.evidently.cloud
   tags:
+  - Project
+  tags_raw:
   - Projects
   properties:
   - type: OpenAPI
