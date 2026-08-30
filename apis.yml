@@ -172,8 +172,6 @@ common:
     url: vocabulary/evidently-vocabulary.yml
   - type: JSONLDContext
     url: json-ld/evidently-context.jsonld
-  - type: Blog
-    url: blogs/blogs.json
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
