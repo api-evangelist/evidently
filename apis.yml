@@ -107,6 +107,8 @@ apis:
   humanURL: https://docs.evidentlyai.com/
   baseURL: https://app.evidently.cloud
   tags:
+  - Services
+  tags_raw:
   - Service
   properties:
   - type: OpenAPI
