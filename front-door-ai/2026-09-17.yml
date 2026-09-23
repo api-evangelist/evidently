@@ -1,0 +1,36 @@
+# Front Door AI Index — evidently — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: evidently
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: www.evidentlyai.com
+  final_host: www.evidentlyai.com
+  ownership: own
+  owner: evidently
+  shares_host_with: null
+  inherited_from: null
+  verdict: scored
+  score: 120
+  host_score: 120
+  density: 63.42
+  words: 1892
+  tiers:
+    agentic: 16
+    core: 104
+    model: 0
+  ambiguous: 10
+  top_terms:
+    AI: 53
+    ML: 26
+    LLMs: 20
+    agent: 6
+    machine learning: 5
+    AI agent: 4
+    RAG: 4
+    predictive: 4
+    prompts: 4
+    inference: 2
+    chatbot: 1
+    copilot: 1

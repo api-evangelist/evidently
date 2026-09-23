@@ -1,9 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Evidently Platform REST Dashboards Projects API
-  description: 'The Evidently Platform REST API provides programmatic access to the Evidently AI observability platform. It enables developers to manage projects, upload evaluation snapshots, query monitoring dashboards, manage datasets, and run trace-based LLM evaluations. Authentication uses a Bearer token (API key) passed via the Authorization header or configured through the EVIDENTLY_API_KEY environment variable. The API is built on the Litestar ASGI framework and exposes versioned routes under /api and /api/v2.
-
-    '
+  title: Evidently Platform REST Projects API
+  description: The Evidently Platform REST API provides programmatic access to the Evidently AI observability platform.
   version: 0.7.17
   license:
     name: Apache 2.0
@@ -317,13 +315,6 @@ components:
         status_code:
           type: integer
           example: 404
-  responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorDetail'
   parameters:
     ProjectId:
       name: project_id
@@ -333,6 +324,13 @@ components:
       schema:
         type: string
         format: uuid
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorDetail'
   securitySchemes:
     bearerAuth:
       type: http

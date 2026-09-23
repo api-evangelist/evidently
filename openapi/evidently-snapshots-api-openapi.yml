@@ -1,9 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Evidently Platform REST Dashboards Snapshots API
-  description: 'The Evidently Platform REST API provides programmatic access to the Evidently AI observability platform. It enables developers to manage projects, upload evaluation snapshots, query monitoring dashboards, manage datasets, and run trace-based LLM evaluations. Authentication uses a Bearer token (API key) passed via the Authorization header or configured through the EVIDENTLY_API_KEY environment variable. The API is built on the Litestar ASGI framework and exposes versioned routes under /api and /api/v2.
-
-    '
+  title: Evidently Platform REST Snapshots API
+  description: The Evidently Platform REST API provides programmatic access to the Evidently AI observability platform.
   version: 0.7.17
   license:
     name: Apache 2.0
@@ -165,9 +163,7 @@ paths:
     post:
       operationId: addSnapshot
       summary: Upload a snapshot
-      description: 'Uploads a serialised Evidently snapshot (report or test suite) to a project. The request body should be a JSON-encoded SnapshotModel object.
-
-        '
+      description: Uploads a serialised Evidently snapshot (report or test suite) to a project. The request body should be a JSON-encoded SnapshotModel object.
       tags:
       - Snapshots
       parameters:
@@ -302,9 +298,7 @@ paths:
     post:
       operationId: getSnapshotsMetricsDataBatch
       summary: Get metric data series (batch)
-      description: 'Returns time-series data for one or more metrics across all snapshots in a project, optionally bounded by timestamp range.
-
-        '
+      description: Returns time-series data for one or more metrics across all snapshots in a project, optionally bounded by timestamp range.
       tags:
       - Snapshots
       parameters:
@@ -336,18 +330,54 @@ paths:
                 $ref: '#/components/schemas/SeriesResponse'
 components:
   schemas:
-    MetricsList:
+    AddSnapshotResponse:
       type: object
-      description: List of metric type identifiers
+      description: Response returned after a successful snapshot upload
       properties:
-        metrics:
+        snapshot_id:
+          type: string
+          format: uuid
+    ReportModel:
+      type: object
+      description: Summary metadata for a snapshot-based report
+      properties:
+        id:
+          type: string
+          format: uuid
+        project_id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        metadata:
+          type: object
+          additionalProperties: true
+        tags:
           type: array
           items:
             type: string
-          example:
-          - DatasetDriftMetric
-          - ColumnDriftMetric
-          - DatasetMissingValuesMetric
+    LabelValuesList:
+      type: object
+      description: Distinct values for a metric label
+      properties:
+        label_values:
+          type: array
+          items:
+            type: string
+    ErrorDetail:
+      type: object
+      description: Error response body
+      properties:
+        detail:
+          type: string
+          description: Human-readable error message
+          example: project not found
+        status_code:
+          type: integer
+          example: 404
     BatchMetricData:
       type: object
       description: Request body for batch metric data series retrieval
@@ -358,29 +388,6 @@ components:
           items:
             type: object
             additionalProperties: true
-    AddSnapshotResponse:
-      type: object
-      description: Response returned after a successful snapshot upload
-      properties:
-        snapshot_id:
-          type: string
-          format: uuid
-    LabelValuesList:
-      type: object
-      description: Distinct values for a metric label
-      properties:
-        label_values:
-          type: array
-          items:
-            type: string
-    LabelsList:
-      type: object
-      description: List of label keys for a metric
-      properties:
-        labels:
-          type: array
-          items:
-            type: string
     SnapshotMetadata:
       type: object
       description: Metadata for a single Evidently snapshot (report or test suite)
@@ -406,56 +413,30 @@ components:
           description: Links to associated datasets
           items:
             type: object
-    ReportModel:
-      type: object
-      description: Summary metadata for a snapshot-based report
-      properties:
-        id:
-          type: string
-          format: uuid
-        project_id:
-          type: string
-          format: uuid
-        name:
-          type: string
-        timestamp:
-          type: string
-          format: date-time
-        metadata:
-          type: object
-          additionalProperties: true
-        tags:
-          type: array
-          items:
-            type: string
-    ErrorDetail:
-      type: object
-      description: Error response body
-      properties:
-        detail:
-          type: string
-          description: Human-readable error message
-          example: project not found
-        status_code:
-          type: integer
-          example: 404
     SeriesResponse:
       type: object
       description: Time-series data response for metrics across snapshots
       additionalProperties: true
-  responses:
-    BadRequest:
-      description: Bad request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorDetail'
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorDetail'
+    MetricsList:
+      type: object
+      description: List of metric type identifiers
+      properties:
+        metrics:
+          type: array
+          items:
+            type: string
+          example:
+          - DatasetDriftMetric
+          - ColumnDriftMetric
+          - DatasetMissingValuesMetric
+    LabelsList:
+      type: object
+      description: List of label keys for a metric
+      properties:
+        labels:
+          type: array
+          items:
+            type: string
   parameters:
     ProjectId:
       name: project_id
@@ -473,6 +454,19 @@ components:
       schema:
         type: string
         format: uuid
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorDetail'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorDetail'
   securitySchemes:
     bearerAuth:
       type: http
