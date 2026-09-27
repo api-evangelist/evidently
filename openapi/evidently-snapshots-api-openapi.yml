@@ -329,14 +329,47 @@ paths:
               schema:
                 $ref: '#/components/schemas/SeriesResponse'
 components:
+  parameters:
+    ProjectId:
+      name: project_id
+      in: path
+      required: true
+      description: UUID of the project
+      schema:
+        type: string
+        format: uuid
+    SnapshotId:
+      name: snapshot_id
+      in: path
+      required: true
+      description: UUID of the snapshot
+      schema:
+        type: string
+        format: uuid
   schemas:
-    AddSnapshotResponse:
+    MetricsList:
       type: object
-      description: Response returned after a successful snapshot upload
+      description: List of metric type identifiers
       properties:
-        snapshot_id:
+        metrics:
+          type: array
+          items:
+            type: string
+          example:
+          - DatasetDriftMetric
+          - ColumnDriftMetric
+          - DatasetMissingValuesMetric
+    ErrorDetail:
+      type: object
+      description: Error response body
+      properties:
+        detail:
           type: string
-          format: uuid
+          description: Human-readable error message
+          example: project not found
+        status_code:
+          type: integer
+          example: 404
     ReportModel:
       type: object
       description: Summary metadata for a snapshot-based report
@@ -359,25 +392,25 @@ components:
           type: array
           items:
             type: string
-    LabelValuesList:
+    AddSnapshotResponse:
       type: object
-      description: Distinct values for a metric label
+      description: Response returned after a successful snapshot upload
       properties:
-        label_values:
+        snapshot_id:
+          type: string
+          format: uuid
+    LabelsList:
+      type: object
+      description: List of label keys for a metric
+      properties:
+        labels:
           type: array
           items:
             type: string
-    ErrorDetail:
+    SeriesResponse:
       type: object
-      description: Error response body
-      properties:
-        detail:
-          type: string
-          description: Human-readable error message
-          example: project not found
-        status_code:
-          type: integer
-          example: 404
+      description: Time-series data response for metrics across snapshots
+      additionalProperties: true
     BatchMetricData:
       type: object
       description: Request body for batch metric data series retrieval
@@ -388,6 +421,14 @@ components:
           items:
             type: object
             additionalProperties: true
+    LabelValuesList:
+      type: object
+      description: Distinct values for a metric label
+      properties:
+        label_values:
+          type: array
+          items:
+            type: string
     SnapshotMetadata:
       type: object
       description: Metadata for a single Evidently snapshot (report or test suite)
@@ -413,56 +454,15 @@ components:
           description: Links to associated datasets
           items:
             type: object
-    SeriesResponse:
-      type: object
-      description: Time-series data response for metrics across snapshots
-      additionalProperties: true
-    MetricsList:
-      type: object
-      description: List of metric type identifiers
-      properties:
-        metrics:
-          type: array
-          items:
-            type: string
-          example:
-          - DatasetDriftMetric
-          - ColumnDriftMetric
-          - DatasetMissingValuesMetric
-    LabelsList:
-      type: object
-      description: List of label keys for a metric
-      properties:
-        labels:
-          type: array
-          items:
-            type: string
-  parameters:
-    ProjectId:
-      name: project_id
-      in: path
-      required: true
-      description: UUID of the project
-      schema:
-        type: string
-        format: uuid
-    SnapshotId:
-      name: snapshot_id
-      in: path
-      required: true
-      description: UUID of the snapshot
-      schema:
-        type: string
-        format: uuid
   responses:
-    NotFound:
-      description: Resource not found
+    BadRequest:
+      description: Bad request
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorDetail'
-    BadRequest:
-      description: Bad request
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:

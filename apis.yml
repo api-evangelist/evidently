@@ -51,7 +51,7 @@ tags:
   - Model Performance
   - AI Evaluation
   - Data Quality
-  - Open-Source
+  - Open Source
   - MLOps
   - LLMOps
   - Generative AI
@@ -66,6 +66,7 @@ tags_raw:
   - MLOps
   - LLMOps
   - Generative AI
+  - Open-Source
 apis:
 - aid: evidently:evidently-dashboards-api
   name: Evidently AI Dashboards API

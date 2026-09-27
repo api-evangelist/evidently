@@ -73,6 +73,17 @@ components:
         type: string
         format: uuid
   schemas:
+    ErrorDetail:
+      type: object
+      description: Error response body
+      properties:
+        detail:
+          type: string
+          description: Human-readable error message
+          example: project not found
+        status_code:
+          type: integer
+          example: 404
     DashboardModel:
       type: object
       description: Project monitoring dashboard configuration
@@ -89,17 +100,6 @@ components:
           items:
             type: object
             additionalProperties: true
-    ErrorDetail:
-      type: object
-      description: Error response body
-      properties:
-        detail:
-          type: string
-          description: Human-readable error message
-          example: project not found
-        status_code:
-          type: integer
-          example: 404
   responses:
     NotFound:
       description: Resource not found
