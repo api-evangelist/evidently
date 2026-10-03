@@ -270,15 +270,6 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  parameters:
-    ProjectId:
-      name: project_id
-      in: path
-      required: true
-      description: UUID of the project
-      schema:
-        type: string
-        format: uuid
   schemas:
     ErrorDetail:
       type: object
@@ -331,6 +322,15 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorDetail'
+  parameters:
+    ProjectId:
+      name: project_id
+      in: path
+      required: true
+      description: UUID of the project
+      schema:
+        type: string
+        format: uuid
   securitySchemes:
     bearerAuth:
       type: http

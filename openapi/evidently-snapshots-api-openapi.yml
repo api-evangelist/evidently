@@ -330,14 +330,6 @@ paths:
                 $ref: '#/components/schemas/SeriesResponse'
 components:
   parameters:
-    ProjectId:
-      name: project_id
-      in: path
-      required: true
-      description: UUID of the project
-      schema:
-        type: string
-        format: uuid
     SnapshotId:
       name: snapshot_id
       in: path
@@ -346,71 +338,15 @@ components:
       schema:
         type: string
         format: uuid
+    ProjectId:
+      name: project_id
+      in: path
+      required: true
+      description: UUID of the project
+      schema:
+        type: string
+        format: uuid
   schemas:
-    MetricsList:
-      type: object
-      description: List of metric type identifiers
-      properties:
-        metrics:
-          type: array
-          items:
-            type: string
-          example:
-          - DatasetDriftMetric
-          - ColumnDriftMetric
-          - DatasetMissingValuesMetric
-    ErrorDetail:
-      type: object
-      description: Error response body
-      properties:
-        detail:
-          type: string
-          description: Human-readable error message
-          example: project not found
-        status_code:
-          type: integer
-          example: 404
-    ReportModel:
-      type: object
-      description: Summary metadata for a snapshot-based report
-      properties:
-        id:
-          type: string
-          format: uuid
-        project_id:
-          type: string
-          format: uuid
-        name:
-          type: string
-        timestamp:
-          type: string
-          format: date-time
-        metadata:
-          type: object
-          additionalProperties: true
-        tags:
-          type: array
-          items:
-            type: string
-    AddSnapshotResponse:
-      type: object
-      description: Response returned after a successful snapshot upload
-      properties:
-        snapshot_id:
-          type: string
-          format: uuid
-    LabelsList:
-      type: object
-      description: List of label keys for a metric
-      properties:
-        labels:
-          type: array
-          items:
-            type: string
-    SeriesResponse:
-      type: object
-      description: Time-series data response for metrics across snapshots
-      additionalProperties: true
     BatchMetricData:
       type: object
       description: Request body for batch metric data series retrieval
@@ -429,6 +365,40 @@ components:
           type: array
           items:
             type: string
+    MetricsList:
+      type: object
+      description: List of metric type identifiers
+      properties:
+        metrics:
+          type: array
+          items:
+            type: string
+          example:
+          - DatasetDriftMetric
+          - ColumnDriftMetric
+          - DatasetMissingValuesMetric
+    SeriesResponse:
+      type: object
+      description: Time-series data response for metrics across snapshots
+      additionalProperties: true
+    ErrorDetail:
+      type: object
+      description: Error response body
+      properties:
+        detail:
+          type: string
+          description: Human-readable error message
+          example: project not found
+        status_code:
+          type: integer
+          example: 404
+    AddSnapshotResponse:
+      type: object
+      description: Response returned after a successful snapshot upload
+      properties:
+        snapshot_id:
+          type: string
+          format: uuid
     SnapshotMetadata:
       type: object
       description: Metadata for a single Evidently snapshot (report or test suite)
@@ -454,6 +424,36 @@ components:
           description: Links to associated datasets
           items:
             type: object
+    ReportModel:
+      type: object
+      description: Summary metadata for a snapshot-based report
+      properties:
+        id:
+          type: string
+          format: uuid
+        project_id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        metadata:
+          type: object
+          additionalProperties: true
+        tags:
+          type: array
+          items:
+            type: string
+    LabelsList:
+      type: object
+      description: List of label keys for a metric
+      properties:
+        labels:
+          type: array
+          items:
+            type: string
   responses:
     BadRequest:
       description: Bad request
