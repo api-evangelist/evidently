@@ -44,6 +44,10 @@ url: https://raw.githubusercontent.com/api-evangelist/evidently/refs/heads/main/
 created: '2026-06-13'
 modified: '2026-06-13'
 specificationVersion: '0.23'
+x-docs-platform: mintlify
+x-docs-platform-confidence: medium
+x-docs-platform-checked: 2026-10-03
+x-docs-hosting: vercel
 tags:
   - ML Monitoring
   - LLM Observability
@@ -137,6 +141,9 @@ apis:
   - type: GitHubRepository
     url: https://github.com/evidentlyai/evidently
 common:
+  - type: CapabilityMap
+    url: capabilities/evidently-capability-edges.yml
+    name: Evidently AI Business Capability Map
   - type: IssueTracker
     url: https://github.com/evidentlyai/evidently/issues
   - type: Releases
