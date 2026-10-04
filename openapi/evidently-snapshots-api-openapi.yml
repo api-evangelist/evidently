@@ -329,69 +329,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/SeriesResponse'
 components:
-  parameters:
-    SnapshotId:
-      name: snapshot_id
-      in: path
-      required: true
-      description: UUID of the snapshot
-      schema:
-        type: string
-        format: uuid
-    ProjectId:
-      name: project_id
-      in: path
-      required: true
-      description: UUID of the project
-      schema:
-        type: string
-        format: uuid
   schemas:
-    BatchMetricData:
-      type: object
-      description: Request body for batch metric data series retrieval
-      properties:
-        series_filter:
-          type: array
-          description: List of metric series filters
-          items:
-            type: object
-            additionalProperties: true
-    LabelValuesList:
-      type: object
-      description: Distinct values for a metric label
-      properties:
-        label_values:
-          type: array
-          items:
-            type: string
-    MetricsList:
-      type: object
-      description: List of metric type identifiers
-      properties:
-        metrics:
-          type: array
-          items:
-            type: string
-          example:
-          - DatasetDriftMetric
-          - ColumnDriftMetric
-          - DatasetMissingValuesMetric
-    SeriesResponse:
-      type: object
-      description: Time-series data response for metrics across snapshots
-      additionalProperties: true
-    ErrorDetail:
-      type: object
-      description: Error response body
-      properties:
-        detail:
-          type: string
-          description: Human-readable error message
-          example: project not found
-        status_code:
-          type: integer
-          example: 404
     AddSnapshotResponse:
       type: object
       description: Response returned after a successful snapshot upload
@@ -424,6 +362,20 @@ components:
           description: Links to associated datasets
           items:
             type: object
+    SeriesResponse:
+      type: object
+      description: Time-series data response for metrics across snapshots
+      additionalProperties: true
+    BatchMetricData:
+      type: object
+      description: Request body for batch metric data series retrieval
+      properties:
+        series_filter:
+          type: array
+          description: List of metric series filters
+          items:
+            type: object
+            additionalProperties: true
     ReportModel:
       type: object
       description: Summary metadata for a snapshot-based report
@@ -454,15 +406,63 @@ components:
           type: array
           items:
             type: string
+    LabelValuesList:
+      type: object
+      description: Distinct values for a metric label
+      properties:
+        label_values:
+          type: array
+          items:
+            type: string
+    ErrorDetail:
+      type: object
+      description: Error response body
+      properties:
+        detail:
+          type: string
+          description: Human-readable error message
+          example: project not found
+        status_code:
+          type: integer
+          example: 404
+    MetricsList:
+      type: object
+      description: List of metric type identifiers
+      properties:
+        metrics:
+          type: array
+          items:
+            type: string
+          example:
+          - DatasetDriftMetric
+          - ColumnDriftMetric
+          - DatasetMissingValuesMetric
+  parameters:
+    SnapshotId:
+      name: snapshot_id
+      in: path
+      required: true
+      description: UUID of the snapshot
+      schema:
+        type: string
+        format: uuid
+    ProjectId:
+      name: project_id
+      in: path
+      required: true
+      description: UUID of the project
+      schema:
+        type: string
+        format: uuid
   responses:
-    BadRequest:
-      description: Bad request
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorDetail'
-    NotFound:
-      description: Resource not found
+    BadRequest:
+      description: Bad request
       content:
         application/json:
           schema:

@@ -270,18 +270,23 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  parameters:
+    ProjectId:
+      name: project_id
+      in: path
+      required: true
+      description: UUID of the project
+      schema:
+        type: string
+        format: uuid
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorDetail'
   schemas:
-    ErrorDetail:
-      type: object
-      description: Error response body
-      properties:
-        detail:
-          type: string
-          description: Human-readable error message
-          example: project not found
-        status_code:
-          type: integer
-          example: 404
     Project:
       type: object
       description: An Evidently project — the top-level container for snapshots and dashboards
@@ -315,22 +320,17 @@ components:
           type: string
           format: date-time
           readOnly: true
-  responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorDetail'
-  parameters:
-    ProjectId:
-      name: project_id
-      in: path
-      required: true
-      description: UUID of the project
-      schema:
-        type: string
-        format: uuid
+    ErrorDetail:
+      type: object
+      description: Error response body
+      properties:
+        detail:
+          type: string
+          description: Human-readable error message
+          example: project not found
+        status_code:
+          type: integer
+          example: 404
   securitySchemes:
     bearerAuth:
       type: http

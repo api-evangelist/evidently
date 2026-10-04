@@ -63,18 +63,16 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  parameters:
+    ProjectId:
+      name: project_id
+      in: path
+      required: true
+      description: UUID of the project
+      schema:
+        type: string
+        format: uuid
   schemas:
-    ErrorDetail:
-      type: object
-      description: Error response body
-      properties:
-        detail:
-          type: string
-          description: Human-readable error message
-          example: project not found
-        status_code:
-          type: integer
-          example: 404
     DashboardModel:
       type: object
       description: Project monitoring dashboard configuration
@@ -91,6 +89,17 @@ components:
           items:
             type: object
             additionalProperties: true
+    ErrorDetail:
+      type: object
+      description: Error response body
+      properties:
+        detail:
+          type: string
+          description: Human-readable error message
+          example: project not found
+        status_code:
+          type: integer
+          example: 404
   responses:
     NotFound:
       description: Resource not found
@@ -98,15 +107,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorDetail'
-  parameters:
-    ProjectId:
-      name: project_id
-      in: path
-      required: true
-      description: UUID of the project
-      schema:
-        type: string
-        format: uuid
   securitySchemes:
     bearerAuth:
       type: http
