@@ -86,3 +86,29 @@ plans:
       - Custom SLA
       - Advanced security controls
       - Enterprise RBAC and audit logs
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - free
+  - subscription
+  units: []
+  plans:
+  - name: Open Source (OSS)
+    access: other
+    model: free
+    model_how: derived
+    units: []
+    periods: []
+  - name: Expert (Cloud / Self-Hosted)
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods: []
+  - name: Enterprise (Self-Hosted)
+    access: other
+    model: free
+    model_how: derived
+    units: []
+    periods: []
