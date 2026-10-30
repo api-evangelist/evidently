@@ -1,4 +1,4 @@
-# Evidently AI (evidently)
+# Evidently AI
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,77 +64,135 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Evidently AI is an open-source ML and LLM observability framework licensed under Apache 2.0 that enables teams to evaluate, test, and monitor AI-powered systems and data pipelines in production. The platform provides over 100 built-in metrics for tracking data drift, data quality, and model performance across both tabular data and generative AI workloads. Developers can integrate evaluations programmatically via the Python SDK or through the Evidently Platform REST API, which exposes endpoints for managing projects, uploading traces, running evaluations, and storing results. Evidently supports self-hosted deployments and previously offered Evidently Cloud (now discontinued as SaaS), so teams can run the full platform within their own infrastructure.
+Evidently AI is an open-source ML and LLM observability framework licensed under Apache 2.0 that enables teams to evaluate, test, and monitor AI-powered systems and data pipelines in production. The platform provides over 100 built-in metrics for tracking data drift, data quality, and model performance across both tabular data and generative AI workloads. Developers can integrate evaluations programmatically via the Python SDK or through the Evidently Platform REST API, which exposes endpoints for managing projects, uploading traces, running evaluations, and storing results. Evidently supports self-hosted deployments and previously offered Evidently Cloud (now discontinued as SaaS) so teams can run the full platform within their own infrastructure.
 
-**APIs.json:** https://raw.githubusercontent.com/api-evangelist/evidently/refs/heads/main/apis.yml
+**Areas:** ML Monitoring · LLM Observability · Data Drift · Model Performance · AI Evaluation · Data Quality · Open Source · MLOps · LLMOps · Generative AI
 
-**Naftiko:** https://github.com/naftiko/fleet?utm_source=api-evangelist&utm_medium=readme&utm_campaign=evidently-api-evangelist&utm_content=repo
+## Evidently AI on APIs.io
 
----
+Everything profiled for Evidently AI is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/evidently/](https://apis.io/providers/evidently/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (4)
 
-- ML Monitoring
-- LLM Observability
-- Data Drift
-- Model Performance
-- AI Evaluation
-- Data Quality
-- Open Source
-- MLOps
-- LLMOps
-- Generative AI
+- [Evidently AI Dashboards API](https://apis.io/apis/evidently/evidently-dashboards-api/) — Manage project monitoring dashboards
+- [Evidently AI Projects API](https://apis.io/apis/evidently/evidently-projects-api/) — Manage Evidently projects — create, list, update, delete
+- [Evidently AI Service API](https://apis.io/apis/evidently/evidently-service-api/) — Service metadata and version information
+- [Evidently AI Snapshots API](https://apis.io/apis/evidently/evidently-snapshots-api/) — Upload and query evaluation snapshots (reports and test suites)
 
----
+### Published properties
 
-## APIs
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-### Evidently Platform REST API
+#### Agentic access (1)
 
-The Evidently Platform REST API provides programmatic access to the observability platform for managing projects, uploading evaluation results, storing traces, running scheduled evaluations, and querying monitoring dashboards. Authentication uses bearer token (API key) via the `EVIDENTLY_API_KEY` environment variable or the `CloudWorkspace` Python client. Base URL: `https://app.evidently.cloud`.
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- **Documentation:** https://docs.evidentlyai.com/
-- **OpenAPI Spec:** https://docs.evidentlyai.com/api-reference/openapi.json
-- **Python SDK:** https://pypi.org/project/evidently/
-- **GitHub:** https://github.com/evidentlyai/evidently
+- [Evidently Agentic Access](https://apis.io/agentic-access/evidently/evidently-agentic-access/)
 
----
+#### JSON-LD (1)
 
-## Plans, Rate Limits, and FinOps
+Linked-data contexts for the provider's vocabulary.
 
-| Resource | File |
+- [Evidently Context](https://apis.io/jsonld/evidently/evidently-context/)
+
+#### Vocabulary (1)
+
+The provider's domain terms, defined.
+
+- [Evidently AI API Vocabulary](https://apis.io/vocabularies/evidently/evidently-vocabulary/)
+
+#### Collections (4)
+
+Postman and Open Collection request collections.
+
+- [Evidently Platform REST Dashboards API](https://apis.io/collections/evidently/open-evidently-dashboards-api/)
+- [Evidently Platform REST Dashboards Projects API](https://apis.io/collections/evidently/open-evidently-projects-api/)
+- [Evidently Platform REST Dashboards Service API](https://apis.io/collections/evidently/open-evidently-service-api/)
+- [Evidently Platform REST Dashboards Snapshots API](https://apis.io/collections/evidently/open-evidently-snapshots-api/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Evidently Authentication](https://apis.io/security/evidently/evidently-authentication/)
+- [Evidently Domain Security](https://apis.io/security/evidently/evidently-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Evidently Plans Pricing](https://apis.io/plans/evidently/evidently-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Evidently Rate Limits](https://apis.io/rate-limits/evidently/evidently-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Evidently Finops](https://apis.io/finops/evidently/evidently-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.evidentlyai.com/)
+- [Documentation](https://docs.evidentlyai.com/)
+- [Pricing](https://www.evidentlyai.com/pricing)
+- [Blog](https://www.evidentlyai.com/blog)
+
+## API Evangelist rating
+
+**Kin Score 34.9** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
 |---|---|
-| Plans and Pricing | [plans/evidently-plans-pricing.yml](plans/evidently-plans-pricing.yml) |
-| Rate Limits | [rate-limits/evidently-rate-limits.yml](rate-limits/evidently-rate-limits.yml) |
-| FinOps Framework | [finops/evidently-finops.yml](finops/evidently-finops.yml) |
+| Discoverability | 66.1 |
+| Contract quality | 54.0 |
+| Contract governance | 13.6 |
+| Operational transparency | 21.1 |
+| Developer ergonomics | 31.0 |
+| Access clarity | 18.4 |
 
-**Pricing summary:** The OSS library and self-hosted platform are free (Apache 2.0). The commercial Expert tier starts at approximately $500/month with per-data-volume overages. Enterprise is custom-quoted. Evidently Cloud SaaS is no longer available; all commercial deployments are self-hosted.
+**Agent readiness 17.9** — agent-aware
 
----
-
-## Timestamps
-
-| Field | Value |
+| Agent-readiness dimension | Result |
 |---|---|
-| Created | 2026-06-13 |
-| Modified | 2026-06-13 |
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
 
----
+**Regulatory alignment 15.5** — AI & Biometrics
 
-## Common Resources
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/evidently/](https://apis.io/providers/evidently/).
 
-| Type | URL |
-|---|---|
-| Website | https://www.evidentlyai.com/ |
-| Documentation | https://docs.evidentlyai.com/ |
-| GitHub Org | https://github.com/evidentlyai |
-| LinkedIn | https://www.linkedin.com/company/evidently-ai/ |
-| Blog | https://www.evidentlyai.com/blog |
-| Pricing | https://www.evidentlyai.com/pricing |
-| X (Twitter) | https://twitter.com/EvidentlyAI |
+## How this profile is made
 
----
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
 
-## Maintainers
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Evidently AI: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
 
-**Kin Lane** — kin@apievangelist.com
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/evidently/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
